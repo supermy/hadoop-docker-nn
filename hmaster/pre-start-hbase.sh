@@ -12,5 +12,5 @@ chown -R hbase:hbase /home/chianyu/shared_with_docker_container/hbase-log-dir
 . /etc/hbase/conf/hbase-env.sh
 
 # data dir
-sudo -u hdfs hadoop fs -mkdir -p hdfs://hdfsnamenoderpc.kubernetes.local:$HDFSNAMENODERPC_SERVICE_PORT/hbase
-sudo -u hdfs hadoop fs -chown hbase hdfs://hdfsnamenoderpc.kubernetes.local:$HDFSNAMENODERPC_SERVICE_PORT/hbase
+sudo -u hdfs hadoop fs -mkdir -p hdfs://$HDFSNAMENODERPC_SERVICE_HOST:$HDFSNAMENODERPC_SERVICE_PORT/hbase
+sudo -u hdfs hadoop fs -chown hbase hdfs://$HDFSNAMENODERPC_SERVICE_HOST:$HDFSNAMENODERPC_SERVICE_PORT/hbase

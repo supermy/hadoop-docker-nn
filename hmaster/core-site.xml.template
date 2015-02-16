@@ -1,6 +1,6 @@
   <configuration>
       <property>
           <name>fs.defaultFS</name>
-          <value>hdfs://hdfsnamenoderpc.kubernetes.local:HDFSNAMENODERPC_SERVICE_PORT</value>
+          <value>hdfs://HDFSNAMENODERPC_SERVICE_HOST:HDFSNAMENODERPC_SERVICE_PORT</value>
       </property>
   </configuration>

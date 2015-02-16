@@ -13,7 +13,7 @@
   </property>
   <property>
     <name>hbase.rootdir</name>
-    <value>hdfs://hdfsnamenoderpc.kubernetes.local:HDFSNAMENODERPC_SERVICE_PORT/hbase</value>
+    <value>hdfs://HDFSNAMENODERPC_SERVICE_HOST:HDFSNAMENODERPC_SERVICE_PORT/hbase</value>
     <description>The directory shared by RegionServers.
     </description>
   </property>
