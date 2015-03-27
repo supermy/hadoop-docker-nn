@@ -1,6 +1,27 @@
+2015-03-05
+    hbase的集群配置进行中；
+    
+
 2015-02-16
     hadoop启动时候core-site.xml进行了处理；
-    
+    完成了hadoop的集群处理；
+    hbase的集群配置中；
+
+测试说明：
+    2.1使用fig up -d 启动集群
+    2.2安装容器工具，进入namenode容器
+         docker run -v /usr/local/bin:/target jpetazzo/nsenter:latest
+         docker ps -a|grep namenode
+         docker-enter b58bc02af904
+    2.3运行指令
+        su hdfs
+        hdfs dfs -mkdir -p hdfs://172.17.1.36:8020/user/hdfs/input
+        hdfs dfs -put core-site.xml hdfs://172.17.1.36:8020/user/hdfs/input
+        hdfs dfs -ls hdfs://172.17.1.36:8020/user/hdfs/input
+        hadoop jar /usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples.jar grep input output 'dfs[a-z.]+'
+        
+        nc -v -z -w2 172.17.1.36 8020
+
 
 #Apache Hadoop 2.5.1 Docker image
 
