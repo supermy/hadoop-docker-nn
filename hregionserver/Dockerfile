@@ -3,7 +3,7 @@
 # docker build -t bioshrek/hbase-regionserver:cdh5 .
 
 FROM bioshrek/hadoop-base:cdh5
-MAINTAINER Huan Wang <shrekwang1@gmail.com>
+MAINTAINER james mo <springclick@gmail.com>
 
 # config hbase
 ADD hbase-env.sh /etc/hbase/conf/hbase-env.sh

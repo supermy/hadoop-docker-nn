@@ -3,10 +3,16 @@
 # docker build -t bioshrek/hbase-master:cdh5 .
 
 FROM bioshrek/hadoop-base:cdh5
-MAINTAINER Huan Wang <shrekwang1@gmail.com>
+MAINTAINER james mo <springclick@gmail.com>
 
 # config hbase
-ADD hostname /etc/hostname  # override hostname
+#RUN sed -i '1d' /etc/hostname
+#RUN sed -i 1i 'abc' /etc/hostname
+#RUN sudo hostname hbasemasteripc
+#RUN echo 'hbasemasteripc'>> /etc/hostname
+
+#ADD hostname /etc/hostname  # override hostname
+RUN cat /etc/hostname
 ADD hbase-env.sh /etc/hbase/conf/hbase-env.sh
 ADD hbase-site.xml.template /etc/hbase/conf/hbase-site.xml.template
 

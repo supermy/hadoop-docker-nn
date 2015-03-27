@@ -19,29 +19,30 @@
 #HMaster 60010 hbase.master.info.port
 #HRegionServer 60030 hbase.regionserver.info.port
 
-
-namenode:
-  image: bioshrek/hadoop-hdfs-namenode:cdh5
+#hadoop集群
+nn:
+  image: nn_base:latest
   ports:
     - "50070:50070"
     - "8020:8020"
     - "8021:8021"
+    - "1022:22"
 
 
-datanode1:
-  image: bioshrek/hadoop-hdfs-datanode:cdh5
+dn1:
+  image: dn_base:latest
   links:
-    - namenode:namenode1
+    - nn:namenode1
   environment:
     HDFSNAMENODERPC_SERVICE_HOST: namenode1
     HDFSNAMENODERPC_SERVICE_PORT: 8020
   ports:
     - "50075:50075"
 
-datanode2:
-  image: bioshrek/hadoop-hdfs-datanode:cdh5
+dn2:
+  image: dn_base:latest
   links:
-    - namenode:namenode1
+    - nn:namenode1
   environment:
     HDFSNAMENODERPC_SERVICE_HOST: namenode1
     HDFSNAMENODERPC_SERVICE_PORT: 8020
@@ -57,40 +58,48 @@ datanode2:
 #    HDFSNAMENODERPC_SERVICE_PORT: 8020
 #  ports:
 #    - "50077:50075"
-
-zookeeper:
-  image: bioshrek/zookeeper:cdh5
+#
+zk:
+  image: jplock/zookeeper:latest
   ports:
     - "2181:2181"
     - "2888:2888"
     - "3888:3888"
 
-hbase1:
-  image: bioshrek/hadoop-hdfs-datanode:cdh5
+hb:
+  #image: bioshrek/hbase-master:cdh5
+  image: hmaster_base:latest
   links:
-    - namenode:namenode1
-    - zookeeper:zookeeper1
+    - nn:namenode1
+    - zk:zookeeper1
   environment:
+    #HBASEMASTERIPC_SERVICE_PORT: 60000
+    HBASEMASTERIPC_SERVICE_PORT_SERVICE_PORT: 60000
     HDFSNAMENODERPC_SERVICE_HOST: namenode1
     HDFSNAMENODERPC_SERVICE_PORT: 8020
     ZOOKEEPERCLIENT_SERVICE_HOST: zookeeper1
     ZOOKEEPERCLIENT_SERVICE_PORT: 2181
-    HBASEMASTERIPC_SERVICE_PORT_SERVICE_PORT: 8021
   ports:
     - "60010:60010"
 
-hreg1:
-  image: bioshrek/hbase-regionserver:cdh5
+rs:
+  #image: bioshrek/hbase-regionserver:cdh5
+  image: hregionserver_base:latest
   links:
-    - namenode:namenode1
-    - zookeeper:zookeeper1
+    - nn:namenode2
+    - zk:zookeeper2
+    - hb:hbase1
   environment:
-    HDFSNAMENODERPC_SERVICE_HOST: namenode1
+    HBASEMASTERIPC_SERVICE_HOST: hbase1
+    HBASEMASTERIPC_SERVICE_PORT: 60010
+    HBASEMASTERIPC_SERVICE_PORT_SERVICE_PORT: 60000
+    HDFSNAMENODERPC_SERVICE_HOST: namenode2
     HDFSNAMENODERPC_SERVICE_PORT: 8020
-    ZOOKEEPERCLIENT_SERVICE_HOST: zookeeper1
+    ZOOKEEPERCLIENT_SERVICE_HOST: zookeeper2
     ZOOKEEPERCLIENT_SERVICE_PORT: 2181
-    HBASEMASTERIPC_SERVICE_PORT_SERVICE_PORT: 8021
   ports:
     - "60030:60030"
 
-#web http://192.168.59.103:50075/
+#web namenode http://192.168.59.103:50075/
+#web hbase #web http://192.168.59.103:60010/
+#web regionserver http://192.168.59.103:60030/
