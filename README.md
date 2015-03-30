@@ -1,4 +1,13 @@
 2015-03-30
+    hbse集群ok
+    >fig up -d
+    >boot2docker ssh
+    >docker ps
+    >docker-enter 123412341234
+    >hbase shell
+    >version
+    >status
+
     https://issues.apache.org/jira/browse/HADOOP-10558
     节点在zookeeper注册的是主机名，调试的时候要把host文件加上节点信息例如 192.168.159.2 master master
     设定docker容器的hostname
