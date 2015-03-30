@@ -30,7 +30,7 @@
 
   <property>
     <name>dfs.namenode.name.dir</name>
-    <value>/home/chianyu/shared_with_docker_container/cdh5/nn</value>
+    <value>/home/jamesmo/shared_with_docker_container/cdh5/nn</value>
   </property>
 
   <property>

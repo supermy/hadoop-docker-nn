@@ -30,7 +30,7 @@
 
   <property>
     <name>dfs.datanode.data.dir</name>
-    <value>/home/chianyu/shared_with_docker_container/cdh5/dn</value>
+    <value>/home/jamesmo/shared_with_docker_container/cdh5/dn</value>
   </property>
 
   <property>

@@ -11,6 +11,7 @@
     <name>hbase.zookeeper.property.clientPort</name>
     <value>ZOOKEEPERCLIENT_SERVICE_PORT</value>
   </property>
+
   <property>
     <name>hbase.rootdir</name>
     <value>hdfs://HDFSNAMENODERPC_SERVICE_HOST:HDFSNAMENODERPC_SERVICE_PORT/hbase</value>
@@ -25,10 +26,12 @@
       true: fully-distributed with unmanaged Zookeeper Quorum (see hbase-env.sh)
     </description>
   </property>
+
   <property>
     <name>hbase.master.port</name>
     <value>HBASEMASTERIPC_SERVICE_PORT</value>
     <description>IPC</description>
   </property>
+
 </configuration>
 

@@ -11,8 +11,8 @@ echo "$HBASEMASTERIPC_SERVICE_HOST hbase-master" >> /etc/hosts
 cat /etc/hosts
 
 # log dir
-mkdir -p /home/chianyu/shared_with_docker_container/hbase-log-dir
-chown -R hbase:hbase /home/chianyu/shared_with_docker_container/hbase-log-dir
+mkdir -p /home/jamesmo/shared_with_docker_container/hbase-log-dir
+chown -R hbase:hbase /home/jamesmo/shared_with_docker_container/hbase-log-dir
 . /etc/hbase/conf/hbase-env.sh
 
 
