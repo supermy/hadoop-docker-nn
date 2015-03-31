@@ -1,3 +1,9 @@
+2015-03-13
+    hive-hbase整合 ok
+    hive 脚本数据初始化示例 ok。
+    hbase 脚本数据初始化示例 ok。
+    初始化环境：docker-enter 进入 hregionserver容器：cd /home/jamesmo/ && start pre-start-hive.sh
+
 2015-03-30
     hbse集群ok
     >fig up -d

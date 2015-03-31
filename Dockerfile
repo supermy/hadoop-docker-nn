@@ -17,4 +17,5 @@ RUN apt-get update -y && apt-get install --no-install-recommends -y -q curl sudo
 RUN curl -O http://archive.cloudera.com/cdh5/one-click-install/wheezy/amd64/cdh5-repository_1.0_all.deb
 RUN dpkg -i cdh5-repository_1.0_all.deb
 RUN curl -s http://archive.cloudera.com/cdh5/debian/wheezy/amd64/cdh/archive.key | sudo apt-key add -
-RUN apt-get update -y && apt-get install -y hadoop-hdfs-namenode hadoop-hdfs-datanode zookeeper zookeeper-server hbase-master hbase-regionserver
+RUN apt-get update -y && apt-get install -y hadoop-hdfs-namenode hadoop-hdfs-datanode zookeeper zookeeper-server \
+            hbase-master hbase-regionserver hive hive-hbase
