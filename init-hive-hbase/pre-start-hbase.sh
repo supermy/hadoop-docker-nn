@@ -19,4 +19,3 @@ chown -R hbase:hbase /home/jamesmo/shared_with_docker_container/hbase-log-dir
 # data dir
 sudo -u hdfs hadoop fs -mkdir -p hdfs://$HDFSNAMENODERPC_SERVICE_HOST:$HDFSNAMENODERPC_SERVICE_PORT/hbase
 sudo -u hdfs hadoop fs -chown hbase hdfs://$HDFSNAMENODERPC_SERVICE_HOST:$HDFSNAMENODERPC_SERVICE_PORT/hbase
-sudo -u hdfs hadoop fs -chmod 777   hdfs://$HDFSNAMENODERPC_SERVICE_HOST:$HDFSNAMENODERPC_SERVICE_PORT/hbase

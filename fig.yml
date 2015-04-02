@@ -100,6 +100,24 @@ rs:
     - "60030:60030"
   hostname: hregionserver1
 
+initdb:
+  image: inithivehbase_base:latest
+  links:
+    - nn:mynn
+    - dn1:mydn1
+    - dn2:mydn2
+    - zk:zookeeper2
+    - hb:hbasemasteripc
+  environment:
+    HBASEMASTERIPC_SERVICE_HOST: hbasemasteripc
+    HBASEMASTERIPC_SERVICE_PORT: 60010
+    HBASEMASTERIPC_SERVICE_PORT_SERVICE_PORT: 60000
+    HDFSNAMENODERPC_SERVICE_HOST: mynn
+    HDFSNAMENODERPC_SERVICE_PORT: 8020
+    ZOOKEEPERCLIENT_SERVICE_HOST: zookeeper2
+    ZOOKEEPERCLIENT_SERVICE_PORT: 2181
+  hostname: hregionserver1
+
 
 #web namenode http://192.168.59.103:50075/
 #web hbase #web http://192.168.59.103:60010/
