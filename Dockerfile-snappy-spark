@@ -1,5 +1,5 @@
 # Creates distributed cdh5
-# docker build -t jamesmo/cdh5 .
+# docker build -t jamesmo/cdh5-snappy-spark .
 
 FROM jamesmo/jre:7
 
@@ -34,7 +34,8 @@ RUN curl -s http://archive.cloudera.com/cdh5/debian/wheezy/amd64/cdh/archive.key
 RUN curl http://archive.cloudera.com/gplextras5/debian/wheezy/amd64/gplextras/cloudera.list -o /etc/apt/sources.list.d/cloudera.list
 RUN apt-get update -y && apt-get install -y hadoop-hdfs-namenode hadoop-hdfs-datanode zookeeper \
             hadoop-lzo*   \
-            hadoop-yarn hadoop-yarn-nodemanager hadoop-mapreduce
+            hadoop-yarn hadoop-yarn-nodemanager hadoop-mapreduce \
+            snappy spark
 
 #zookeeper-server
 #snappy

@@ -1,19 +1,4 @@
-#8020        namenode RPC交互端口
-#8021        JT RPC交互端口
-#50030       mapred.job.tracker.http.address        JobTracker administrative web GUI
-##JOBTRACKER的HTTP服务器和端口
-#50070              dfs.http.address                             NameNode administrative web GUI
-##NAMENODE的HTTP服务器和端口
-#50010          dfs.datanode.address                   DataNode control port (each DataNode listens on this port and registers it with the  NameNode on startup)
-##DATANODE控制端口，主要用于DATANODE初始化时向NAMENODE提出注册和应答请求
-#50020          dfs.datanode.ipc.address               DataNode IPC port, used for block transfer
-##DATANODE的RPC服务器地址和端口
-#50060      mapred.task.tracker.http.address           Per TaskTracker web interface
-##TASKTRACKER的HTTP服务器和端口
-#50075          dfs.datanode.http.address                  Per   DataNode web interface
-##DATANODE的HTTP服务器和端口
-#50090            dfs.secondary.http.address             Per secondary NameNode web interface
-##辅助DATANODE的HTTP服务器和端口
+
 
 #HBase
 #HMaster 60010 hbase.master.info.port
@@ -21,7 +6,7 @@
 
 #hadoop集群
 nn:
-  image: nn_base:latest
+  image: jamesmo/nn:cdh5
   environment:
     HOSTNAME_NN: mynn
   ports:
@@ -31,10 +16,24 @@ nn:
     - "1022:22"
   hostname: mynn
 
-dn1:
-  image: dn_base:latest
+
+yarn:
+  image: jamesmo/yarn:cdh5
   links:
     - nn:mynn
+  environment:
+    HDFSNAMENODERPC_SERVICE_HOST: mynn
+    HDFSNAMENODERPC_SERVICE_PORT: 8020
+  ports:
+    - "8088:8088"
+    - "19888:19888"
+  hostname: yarn
+
+dn1:
+  image: jamesmo/dn:cdh5
+  links:
+    - nn:mynn
+    - yarn
   environment:
     HDFSNAMENODERPC_SERVICE_HOST: mynn
     HDFSNAMENODERPC_SERVICE_PORT: 8020
@@ -44,9 +43,10 @@ dn1:
 
 
 dn2:
-  image: dn_base:latest
+  image: jamesmo/dn:cdh5
   links:
     - nn:mynn
+    - yarn
   environment:
     HDFSNAMENODERPC_SERVICE_HOST: mynn
     HDFSNAMENODERPC_SERVICE_PORT: 8020
@@ -63,7 +63,7 @@ zk:
     - "3888:3888"
 
 hb:
-  image: hmaster_base:latest
+  image: jamesmo/hmaster:cdh5
   links:
     - nn:mynn
     - dn1:mydn1
@@ -81,7 +81,7 @@ hb:
   hostname: hbasemasteripc
 
 rs:
-  image: hregionserver_base:latest
+  image: jamesmo/hregionserver:cdh5
   links:
     - nn:mynn
     - dn1:mydn1
@@ -101,7 +101,7 @@ rs:
   hostname: hregionserver1
 
 initdb:
-  image: inithivehbase_base:latest
+  image: jamesmo/inithivehbase:cdh5
   links:
     - nn:mynn
     - dn1:mydn1
