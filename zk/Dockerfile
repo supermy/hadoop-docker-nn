@@ -3,7 +3,7 @@
 # docker build -t jamesmo/zookeeper:cdh5 .
 
 FROM jamesmo/cdh5:latest
-MAINTAINER Huan Wang <shrekwang1@gmail.com>
+MAINTAINER Jamesmo <springclick@gmail.com>
 
 # config zookeeper
 ADD zoo.cfg /etc/zookeeper/conf/zoo.cfg

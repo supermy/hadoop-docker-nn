@@ -1,64 +1,62 @@
-2015-04-06
-    镜像名称规范化；
-    lzo配置优化；
-    snappy+spark安装包引入；
-    镜像包的集成关系优化。
-    优化测试完成。
+微云（可快速扩充）
+====================
 
-2015-03-13
-    hive-hbase整合 ok
-    hive 脚本数据初始化示例 ok。
-    hbase 脚本数据初始化示例 ok。
-    初始化环境：docker-enter 进入 hregionserver容器：cd /home/jamesmo/ && start pre-start-hive.sh
+一键构造大数据平台-介绍
+---------------------
+[Hadoop介绍](hdfs/README.md) 及应用场景.
 
-2015-03-30
-    hbse集群ok
-    >fig up -d
-    >boot2docker ssh
-    >docker ps
-    >docker-enter 123412341234
-    >hbase shell
-    >version
-    >status
+[Hbase+Hive介绍](hbase/README.md) 及应用场景.
 
-    https://issues.apache.org/jira/browse/HADOOP-10558
-    节点在zookeeper注册的是主机名，调试的时候要把host文件加上节点信息例如 192.168.159.2 master master
-    设定docker容器的hostname
-    **约定名称与变量替换混用**
-    **最终，约定名称使用;link不支持循环调用**
+[普通版镜像包构造](build-common.sh)
 
-2015-03-05
-    hbase的集群配置进行中；
-    web测试:http://192.168.2.100:60010/master.jsp
-    /etc/init.d/hbase-master start
-    hbase shell
-    >status
-    >version
+[压缩版镜像包构造《比较大》](build-snappy-spark.sh)
 
-    重新build image;
-    web访问ok
-    http://192.168.59.103:50070/
-    http://192.168.59.103:60010/
-    http://192.168.59.103:60030/
+### 常用场景1 hbase+hive(hbase进行删改的数据维护,hive进行复查查询和导入数据)
 
-2015-02-16
-    hadoop启动时候core-site.xml进行了处理；
-    完成了hadoop的集群处理；
-    hbase的集群配置中；
+> [通过hive创建hbase表](hbase/hregionserver/hive-init.sql),在hive中增加数据，hbase同步增加数据，查看hive的数据。
+> [通过hive创建hbase表](hbase/hregionserver/hbase-init.rb),在hbase中增加数据，查看hbase数据。
 
-测试说明：
-    2.1使用fig up -d 启动集群
-    2.2安装容器工具，进入namenode容器
-         docker run -v /usr/local/bin:/target jpetazzo/nsenter:latest
-         docker ps -a|grep namenode
-         docker-enter b58bc02af904
-    2.3运行指令
-        su hdfs
-        hdfs dfs -mkdir -p hdfs://172.17.1.36:8020/user/hdfs/input
-        hdfs dfs -put core-site.xml hdfs://172.17.1.36:8020/user/hdfs/input
-        hdfs dfs -ls hdfs://172.17.1.36:8020/user/hdfs/input
-        hadoop jar /usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples.jar grep input output 'dfs[a-z.]+'
 
-        nc -v -z -w2 172.17.1.36 8020
+运行示例
+---------------------
+### 运行
+> 进入到当前目录
+> ## fig up -d && fig ps
+### 观察日志
+>
+* 查看hive+hbase数据表建立以及数据导入的情况：fig logs initdb
+*
+* docker run -v /usr/local/bin:/target jpetazzo/nsenter:latest
+*
+* 初始化环境：docker-enter cid 进入 hregionserver容器：完成hive-hbase环境准备，和日志表建设，cd /home/jamesmo/ && start pre-start-hive.sh
+*
+* 查看数据-hive数据(hregionserver-node)
+*
+* sh /home/jamesmo/start-hive.sh  && select * from hive_hbase_log
+*
+* 查看数据-hbse数据(hregionserver-node)
+*
+* hbase shell
+*  <'scan "hive_hbase_log"'
+*
+> ## hbase+hive示例
 
-        nc -v -z -w2  hdfsnamenoderpc.kubernetes.local 8020
+压缩是否支持测试
+---------------------
+### 运行
+> 1.进入到当前目录
+> 构造镜像包：sh build-snappy-spark.sh
+> 启动镜像包：sh run-snappy-spark.sh
+> docker run -v /usr/local/bin:/target jpetazzo/nsenter:latest
+>  初始化环境：docker-enter cid 进入 hregionserver容器
+> 测试snappy:sudo -u hdfs hbase org.apache.hadoop.hbase.util.CompressionTest hdfs://mynn:8020/hbase1 snappy
+>
+> 2 . 创建一章以snappy方式压缩的表来检查能否成功:
+>
+> $ hbase shell
+>  create 't1', { NAME => 'cf1', COMPRESSION => 'snappy' }
+>  describe 't1'
+>
+> 在"describe" 命令输出中, 需要确认 "COMPRESSION => 'snappy'"
+> ## hbase+hive snappy支持
+>

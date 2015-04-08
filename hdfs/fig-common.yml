@@ -22,7 +22,7 @@
 #查看在线的节点：http://cdh1:8088/cluster/nodes。
 
 nn:
-  image: jamesmo/snappy-spark-nn:cdh5
+  image: jamesmo/nn:cdh5
   environment:
     HOSTNAME_NN: mynn
   ports:
@@ -35,7 +35,7 @@ nn:
 
 
 yarn:
-  image: jamesmo/snappy-spark-yarn:cdh5
+  image: jamesmo/yarn:cdh5
   links:
     - nn:mynn
   environment:
@@ -47,7 +47,7 @@ yarn:
   hostname: yarn
 
 dn1:
-  image: jamesmo/snappy-spark-dn:cdh5
+  image: jamesmo/dn:cdh5
   links:
     - nn:mynn
     - yarn
@@ -60,7 +60,7 @@ dn1:
 
 
 dn2:
-  image: jamesmo/snappy-spark-dn:cdh5
+  image: jamesmo/dn:cdh5
   links:
     - nn:mynn
     - yarn

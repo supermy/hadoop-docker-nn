@@ -2,6 +2,7 @@
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 
 <configuration>
+
     <property>
      <name>mapreduce.framework.name</name>
      <value>yarn</value>
@@ -30,4 +31,15 @@
         <name>yarn.app.mapreduce.am.staging-dir</name>
         <value>/user</value>
     </property>
+
+    <!--snappy server-->
+    <property>
+        <name>mapreduce.map.output.compress</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>mapred.map.output.compress.codec</name>
+        <value>org.apache.hadoop.io.compress.SnappyCodec</value>
+    </property>
+
 </configuration>

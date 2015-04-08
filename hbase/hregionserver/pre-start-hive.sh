@@ -12,6 +12,10 @@ sudo -u hdfs hdfs dfs -put  /usr/lib/zookeeper/*   hdfs://mynn:8020/usr/lib/zook
 sudo -u hdfs hdfs dfs -put  /usr/lib/hbase/*   hdfs://mynn:8020/usr/lib/hbase/
 sudo -u hdfs hdfs dfs -put  /usr/lib/hive/*  hdfs://mynn:8020/usr/lib/hive/
 
+SET hive.exec.compress.output=true;
+SET mapred.output.compression.codec=org.apache.hadoop.io.compress.SnappyCodec;
+SET mapred.output.compression.type=BLOCK;
+
 #构造hadoop用户目录，只有hadoop才有操作权限
 mkdir -p /home/jamesmo/hive-hbase/
 chown hdfs:hadoop /home/jamesmo/hive-hbase/
