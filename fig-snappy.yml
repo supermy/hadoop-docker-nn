@@ -98,25 +98,7 @@ rs:
     - "60030:60030"
   hostname: hregionserver1
 
-rs2:
-  image: jamesmo/snappy-spark-rs:cdh5
-  links:
-    - nn:mynn
-    - dn1:mydn1
-    - dn2:mydn2
-    - zk:zookeeper2
-    - hb:hbasemasteripc
-  environment:
-    HBASEMASTERIPC_SERVICE_HOST: hbasemasteripc
-    HBASEMASTERIPC_SERVICE_PORT: 60010
-    HBASEMASTERIPC_SERVICE_PORT_SERVICE_PORT: 60000
-    HDFSNAMENODERPC_SERVICE_HOST: mynn
-    HDFSNAMENODERPC_SERVICE_PORT: 8020
-    ZOOKEEPERCLIENT_SERVICE_HOST: zookeeper2
-    ZOOKEEPERCLIENT_SERVICE_PORT: 2181
-  ports:
-    - "60031:60030"
-  hostname: hregionserver2
+
 
 initdb:
   image: jamesmo/snappy-spark-initdb:cdh5

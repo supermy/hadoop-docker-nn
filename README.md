@@ -60,3 +60,6 @@
 > 在"describe" 命令输出中, 需要确认 "COMPRESSION => 'snappy'"
 > ## hbase+hive snappy支持
 >
+
+https://github.com/supermy/hadoop-docker-nn
+http://t.cn/RA6by8L
