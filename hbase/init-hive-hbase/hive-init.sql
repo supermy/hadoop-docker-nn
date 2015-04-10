@@ -37,9 +37,10 @@ CREATE TABLE info_rcfile(
      STORED AS RCFILE;
 
 load data local inpath '/home/jamesmo/1.txt' OVERWRITE into table info_text;
-
 insert into table info_rcfile select * from info_text;
+
 select * from info_rcfile limit 20;
 select * from info_text limit 20;
+
 select INPUT__FILE__NAME,unum, BLOCK__OFFSET__INSIDE__FILE from raw limit 10;
 select INPUT__FILE__NAME,office_no, BLOCK__OFFSET__INSIDE__FILE from locallzo limit 20;
