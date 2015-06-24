@@ -5,6 +5,20 @@
 FROM jamesmo/hbase:cdh5
 MAINTAINER james mo <springclick@gmail.com>
 
+RUN sed -i '$a \
+        hdfs  -       nofile  32768         \n  \
+        hdfs  -       nproc   2048          \n  \
+        hbase -       nofile  32768         \n  \
+        hbase -       nproc   2048          \n  \
+    '  \
+    /etc/security/limits.conf
+
+RUN sed -i '$a \
+        session required  pam_limits.so  \
+    ' \
+    /etc/pam.d/common-session
+
+
 # config hbase
 # 设置hostname
 # fig: hostname hbasemasteripc
