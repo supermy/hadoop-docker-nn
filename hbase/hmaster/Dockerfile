@@ -1,8 +1,8 @@
 # Creates distributed cdh5
 #
-# docker build -t jamesmo/hmaster:cdh5 .
+# docker build -t supermy/cloud-hmaster:cdh5 .
 
-FROM jamesmo/hbase:cdh5
+FROM supermy/cloud-hbase:cdh5
 MAINTAINER james mo <springclick@gmail.com>
 
 RUN sed -i '$a \

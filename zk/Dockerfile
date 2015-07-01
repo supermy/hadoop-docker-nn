@@ -1,8 +1,8 @@
 # Creates distributed cdh5
 #
-# docker build -t jamesmo/zookeeper:cdh5 .
+# docker build -t supermy/cloud-zookeeper:cdh5 .
 
-FROM jamesmo/cdh5:latest
+FROM supermy/cloud-cdh5:latest
 MAINTAINER Jamesmo <springclick@gmail.com>
 
 # config zookeeper

@@ -1,8 +1,8 @@
 # Creates distributed cdh5
 #
-# docker build -t jamesmo/namenode:cdh5 .
+# docker build -t supermy/cloud-namenode:cdh5 .
 
-FROM jamesmo/cdh5-snappy-spark:latest
+FROM supermy/cloud-cdh5:snappy
 MAINTAINER JamesMo <springclick@gmail.com>
 
 # config hadoop

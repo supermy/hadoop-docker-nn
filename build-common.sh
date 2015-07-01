@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # build all docker images except jamesmo/cdh5:latest
 # base
 
@@ -22,3 +23,7 @@ docker ps -a|awk '{print $1}'|xargs docker rm
 docker images|grep none|awk '{print $3}'|xargs docker rmi
 
 docker images|grep jamesmo
+
+
+#rsync -avz -e ssh common/mykafka/*  /Users/moyong/project/env-myopensource/3-tools/docker/kafka/
+

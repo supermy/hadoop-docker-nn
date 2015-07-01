@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # build all docker images except jamesmo/cdh5:latest
 # base
 

@@ -1,8 +1,8 @@
 # Creates distributed cdh5
 #
-# docker build -t jamesmo/hregionserver:cdh5 .
+# docker build -t supermy/cloud-hregionserver:cdh5 .
 
-FROM jamesmo/hbase-snappy-spark:cdh5
+FROM supermy/cloud-hbase:snappy
 MAINTAINER james mo <springclick@gmail.com>
 
 # config hbase

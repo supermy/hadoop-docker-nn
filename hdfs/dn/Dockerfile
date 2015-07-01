@@ -1,8 +1,8 @@
 # Creates distributed cdh5
 #
-# docker build -t jamesmo/datanode:cdh5 .
+# docker build -t supermy/cloud-datanode:cdh5 .
 
-FROM jamesmo/cdh5:latest
+FROM supermy/cloud-cdh5:latest
 MAINTAINER JamesMO <springclick@gmail.com>
 
 # config hadoop

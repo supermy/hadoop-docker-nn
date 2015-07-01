@@ -1,7 +1,7 @@
 # Creates distributed cdh5
-# docker build -t jamesmo/cdh5 .
+# docker build -t supermy/cloud-cdh5 .
 
-FROM jamesmo/jre:7
+FROM supermy/docker-jre:7
 
 MAINTAINER JamesMo <springclick@gmail.com>
 

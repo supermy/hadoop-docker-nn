@@ -1,8 +1,8 @@
 # Creates distributed cdh5
 #
-# docker build -t jamesmo/hbase-snappy-spark:cdh5 .
+# docker build -t supermy/cloud-hbase:snappy .
 
-FROM jamesmo/cdh5-snappy-spark:latest
+FROM supermy/cloud-cdh5:snappy
 MAINTAINER james mo <springclick@gmail.com>
 
 RUN apt-get update -y && apt-get install -y \

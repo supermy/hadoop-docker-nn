@@ -1,7 +1,7 @@
 # Creates distributed cdh5
-# docker build -t jamesmo/cdh5-snappy-spark .
+# docker build -t supermy/cloud-cdh5:snappy .
 
-FROM jamesmo/jre:7
+FROM supermy/docker-jre:7
 
 MAINTAINER JamesMo <springclick@gmail.com>
 

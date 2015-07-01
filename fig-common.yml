@@ -4,7 +4,7 @@
 
 #hadoop集群
 nn:
-  image: jamesmo/nn:cdh5
+  image: supermy/cloud-nn:cdh5
   environment:
     HOSTNAME_NN: mynn
   ports:
@@ -16,7 +16,7 @@ nn:
 
 
 yarn:
-  image: jamesmo/yarn:cdh5
+  image: supermy/cloud-yarn:cdh5
   links:
     - nn:mynn
   environment:
@@ -28,7 +28,7 @@ yarn:
   hostname: yarn
 
 dn1:
-  image: jamesmo/dn:cdh5
+  image: supermy/cloud-dn:cdh5
   links:
     - nn:mynn
     - yarn
@@ -41,7 +41,7 @@ dn1:
 
 
 dn2:
-  image: jamesmo/dn:cdh5
+  image: supermy/cloud-dn:cdh5
   links:
     - nn:mynn
     - yarn
@@ -61,7 +61,7 @@ zk:
     - "3888:3888"
 
 hb:
-  image: jamesmo/hb:cdh5
+  image: supermy/cloud-hb:cdh5
   links:
     - nn:mynn
     - dn1:mydn1
@@ -79,7 +79,7 @@ hb:
   hostname: hbasemasteripc
 
 rs:
-  image: jamesmo/rs:cdh5
+  image: supermy/cloud-rs:cdh5
   links:
     - nn:mynn
     - dn1:mydn1
@@ -99,7 +99,7 @@ rs:
   hostname: hregionserver1
 
 initdb:
-  image: jamesmo/initdb:cdh5
+  image: supermy/cloud-initdb:cdh5
   links:
     - nn:mynn
     - dn1:mydn1

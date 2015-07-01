@@ -1,8 +1,8 @@
 # Creates distributed cdh5
 # http://www.cloudera.com/content/cloudera/en/documentation/core/latest/topics/cdh_ig_spark_configure.html
-# docker build -t jamesmo/namenode:cdh5 .
+# docker build -t supermy/cloud-namenode:cdh5 .
 
-FROM jamesmo/cdh5:latest
+FROM supermy/cloud-cdh5:latest
 MAINTAINER JamesMo <springclick@gmail.com>
 
 # config hadoop

@@ -4,7 +4,7 @@
 
 #hadoop集群
 nn:
-  image: jamesmo/snappy-spark-nn:cdh5
+  image: supermy/cloud-snappy-spark-nn:cdh5
   environment:
     HOSTNAME_NN: mynn
   ports:
@@ -16,7 +16,7 @@ nn:
 
 
 yarn:
-  image: jamesmo/snappy-spark-yarn:cdh5
+  image: supermy/cloud-snappy-spark-yarn:cdh5
   links:
     - nn:mynn
   environment:
@@ -28,7 +28,7 @@ yarn:
   hostname: yarn
 
 dn1:
-  image: jamesmo/snappy-spark-dn:cdh5
+  image: supermy/cloud-snappy-spark-dn:cdh5
   links:
     - nn:mynn
     - yarn
@@ -41,7 +41,7 @@ dn1:
 
 
 dn2:
-  image: jamesmo/snappy-spark-dn:cdh5
+  image: supermy/cloud-snappy-spark-dn:cdh5
   links:
     - nn:mynn
     - yarn
@@ -61,7 +61,7 @@ zk:
     - "3888:3888"
 
 hb:
-  image: jamesmo/snappy-spark-hb:cdh5
+  image: supermy/cloud-snappy-spark-hb:cdh5
   links:
     - nn:mynn
     - dn1:mydn1
@@ -79,7 +79,7 @@ hb:
   hostname: hbasemasteripc
 
 rs:
-  image: jamesmo/snappy-spark-rs:cdh5
+  image: supermy/cloud-snappy-spark-rs:cdh5
   links:
     - nn:mynn
     - dn1:mydn1
@@ -101,7 +101,7 @@ rs:
 
 
 initdb:
-  image: jamesmo/snappy-spark-initdb:cdh5
+  image: supermy/cloud-snappy-spark-initdb:cdh5
   links:
     - nn:mynn
     - dn1:mydn1
