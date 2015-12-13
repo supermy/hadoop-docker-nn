@@ -1,0 +1,55 @@
+<?xml version=”1.0″?>
+<allocations>
+    <!– users max running apps –>
+    <userMaxAppsDefault>30</userMaxAppsDefault>
+    <!– queues –>
+    <queue name=”root”>
+        <minResources>512mb,50vcores</minResources>
+        <maxResources>1024mb,100vcores</maxResources>
+        <maxRunningApps>100</maxRunningApps>
+        <weight>1.0</weight>
+        <schedulingMode>fair</schedulingMode>
+        <aclSubmitApps></aclSubmitApps>
+        <aclAdministerApps></aclAdministerApps>
+    </queue>
+
+    <queue name=”default”>
+        <minResources>102mb,10vcores</minResources>
+        <maxResources>307mb,30vcores</maxResources>
+        <maxRunningApps>100</maxRunningApps>
+        <schedulingMode>fair</schedulingMode>
+        <weight>1.0</weight>
+        <aclSubmitApps>*</aclSubmitApps>
+    </queue>
+
+    <queue name=”businessA”>
+        <minResources>51mb,5vcores</minResources>
+        <maxResources>204mb,20vcores</maxResources>
+        <maxRunningApps>100</maxRunningApps>
+        <schedulingMode>fair</schedulingMode>
+        <weight>2.0</weight>
+        <aclSubmitApps>businessA,jamesmo group_businessA,group_jamesmo</aclSubmitApps>
+        <aclAdministerApps>businessA,hadoop group_businessA,supergroup</aclAdministerApps>
+    </queue>
+
+    <queue name=”businessB”>
+        <minResources>51mb,5vcores</minResources>
+        <maxResources>204mb,20vcores</maxResources>
+        <maxRunningApps>100</maxRunningApps>
+        <schedulingMode>fair</schedulingMode>
+        <weight>1</weight>
+        <aclSubmitApps>businessB group_businessA</aclSubmitApps>
+        <aclAdministerApps>businessA,hadoop group_businessA,supergroup</aclAdministerApps>
+    </queue>
+
+    <queue name=”businessC”>
+        <minResources>51mb,5vcores</minResources>
+        <maxResources>204mb,20vcores</maxResources>
+        <maxRunningApps>100</maxRunningApps>
+        <schedulingMode>fair</schedulingMode>
+        <weight>1.5</weight>
+        <aclSubmitApps>businessC group_businessC</aclSubmitApps>
+        <aclAdministerApps>businessC,hadoop group_businessC,supergroup</aclAdministerApps>
+    </queue>
+
+</allocations>

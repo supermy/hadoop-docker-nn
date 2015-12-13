@@ -13,9 +13,11 @@ ADD hdfs-site.xml /etc/hadoop/conf/hdfs-site.xml
 # config yarn
 ADD yarn-site.xml /etc/hadoop/conf/yarn-site.xml
 ADD mapred-site.xml /etc/hadoop/conf/mapred-site.xml
+#ADD fair-scheduler.xml /etc/hadoop/conf/fair-scheduler.xml
+
 
 # yarn
-RUN apt-get update -y && apt-get install -y \
+RUN apt-get install -y \
             hadoop-yarn hadoop-yarn-resourcemanager  \
             hadoop-mapreduce-historyserver hadoop-yarn-proxyserver
 

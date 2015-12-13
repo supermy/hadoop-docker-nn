@@ -59,13 +59,17 @@ ResourceManager 是基于应用程序对资源的需求进行调度的 ; 每一�
 * 建立进入容器快捷指令：docker run -v /usr/local/bin:/target jpetazzo/nsenter:latest
 * 进入容器：docker-enter cid
 * 准备资源
-*    su hdfs
-*    hdfs dfs -mkdir -p /user/root/input
-*    hdfs dfs -mkdir -p hdfs://mynn:8020/user/hdfs/input
-*    hdfs dfs -put core-site.xml /user/root/input/
-*    hdfs dfs -put core-site.xml hdfs://mynn:8020/user/hdfs/input
-*    hdfs dfs -ls /user/root/input/
-*    hadoop jar /usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples.jar grep input output 'dfs[a-z.]+'
+
+*docker exec -u hdfs hdfs_yarn_1 bash -c "hdfs dfs -mkdir -p input"
+
+*docker exec -u hdfs hdfs_yarn_1 bash -c "hdfs dfs -put  /usr/lib/hadoop-hdfs/webapps/hdfs/WEB-INF/web.xml input"
+
+*docker exec -u hdfs hdfs_yarn_1 bash -c "hdfs dfs -ls input"
+
+*docker exec -u hdfs hdfs_yarn_1 bash -c "hdfs dfs -ls hdfs://mynn:8020/user/hdfs/input"
+
+*docker exec -u hdfs hdfs_yarn_1 bash -c "hadoop jar /usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples.jar grep input output 'dfs[a-z.]+'"
+
 * 监测端口是否可用
 *    nc -v -z -w2 mynn 8020
 > ## hadoop示例

@@ -22,7 +22,7 @@
 #查看在线的节点：http://cdh1:8088/cluster/nodes。
 
 nn:
-  image: supermy/cloud-snappy-spark-nn:cdh5
+  image: supermy/cloud-nn:snappy
   environment:
     HOSTNAME_NN: mynn
   ports:
@@ -35,7 +35,7 @@ nn:
 
 
 yarn:
-  image: supermy/cloud-snappy-spark-yarn:cdh5
+  image: supermy/cloud-yarn:snappy
   links:
     - nn:mynn
   environment:
@@ -45,9 +45,11 @@ yarn:
     - "8088:8088"
     - "19888:19888"
   hostname: yarn
+  volumes_from:
+    - data
 
 dn1:
-  image: supermy/cloud-snappy-spark-dn:cdh5
+  image: supermy/cloud-dn:snappy
   links:
     - nn:mynn
     - yarn
@@ -60,7 +62,7 @@ dn1:
 
 
 dn2:
-  image: supermy/cloud-snappy-spark-dn:cdh5
+  image: supermy/cloud-dn:snappy
   links:
     - nn:mynn
     - yarn
@@ -70,3 +72,16 @@ dn2:
   ports:
     - "50076:50075"
   hostname: mydn2
+
+
+
+#常用工具集合
+data:
+  image: busybox
+  command: /bin/true
+  volumes:
+      #- /home/yuan/docker/web/www:/data/www/
+      #- /home/yuan/docker/web/logs/:/usr/local/nginx/logs/
+      #- /home/yuan/docker/web/lua/:/usr/local/nginx/conf/nginx.d/lua/ #配置文件,fix.me
+      - /Users/moyong/project/env-myopensource/2-cloud/hadoop-docker-nn-my/hdfs/yarn/yarn-site.xml:/etc/hadoop/conf/yarn-site.xml
+      - /Users/moyong/project/env-myopensource/2-cloud/hadoop-docker-nn-my/hdfs/yarn/fair-scheduler.xml:/etc/hadoop/conf/fair-scheduler.xml
