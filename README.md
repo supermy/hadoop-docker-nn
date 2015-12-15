@@ -21,45 +21,37 @@
 ---------------------
 ### 运行
 > 进入到当前目录
-> ## fig up -d && fig ps
+> ## fig up -d && fig logs [namenode 节点启动较慢,需要二次启动]
 ### 观察日志
 >
-* 查看hive+hbase数据表建立以及数据导入的情况：fig logs initdb
-*
-* docker run -v /usr/local/bin:/target jpetazzo/nsenter:latest
-*
-* 初始化环境：docker-enter cid 进入 hregionserver容器：完成hive-hbase环境准备，和日志表建设，cd /home/jamesmo/ && start pre-start-hive.sh
-*
-* 查看数据-hive数据(hregionserver-node)
-*
-* sh /home/jamesmo/start-hive.sh  && select * from hive_hbase_log
-*
-* 查看数据-hbse数据(hregionserver-node)
-*
-* hbase shell
-*  <'scan "hive_hbase_log"'
-*
-> ## hbase+hive示例
+> [访问hbase信息页面 ](http://192.168.59.103:60010/) 通过 http://192.168.59.103:60010/。
+>
+> [访问RegionServer的信息页面 ](http://192.168.59.103:60010/) 通过 http://192.168.59.103:60030/。
+>
 
-压缩是否支持测试（千万数据，加载45秒）
----------------------
-### 运行
-> 1.进入到当前目录
-> 构造镜像包：sh build-snappy-spark.sh
-> 启动镜像包：sh run-snappy-spark.sh
-> docker run -v /usr/local/bin:/target jpetazzo/nsenter:latest
->  初始化环境：docker-enter cid 进入 hregionserver容器
-> 测试snappy:sudo -u hdfs hbase org.apache.hadoop.hbase.util.CompressionTest hdfs://mynn:8020/hbase1 snappy
->
-> 2 . 创建一章以snappy方式压缩的表来检查能否成功:
->
-> $ hbase shell
->  create 't1', { NAME => 'cf1', COMPRESSION => 'snappy' }
->  describe 't1'
->
-> 在"describe" 命令输出中, 需要确认 "COMPRESSION => 'snappy'"
-> ## hbase+hive snappy支持
->
+
+测试snappy安装是否成功：
+
+1 . 使用 CompressionTest 来查看snappy是否 enabled 并且能成功 loaded:
+
+* docker exec -u hdfs hbase_hb_1 bash -c "hdfs dfs -mkdir -p myhbase && \
+    hbase org.apache.hadoop.hbase.util.CompressionTest snappytest snappy"
+
+2 . 创建一章以snappy方式压缩的表来检查能否成功:
+
+####初始化日志数据表
+
+* docker exec -u hdfs hbase_hb_1 bash -c "hbase shell < /data/hbase/hbase-init.rb"
+
+* docker exec -u hdfs hbase_rs_1 bash -c "hive -f /data/hbase/hive-init.sql"
+
+
+#在hbase插入一条数据,hive查询数据同步增加
+#>hbase shell
+#>put 'hive_hbase_log',1, 'log:full', '100'
+#>scan ‘hive_hbase_log'
+
+> ## hbase+hive示例
 
 https://github.com/supermy/hadoop-docker-nn
 http://t.cn/RA6by8L

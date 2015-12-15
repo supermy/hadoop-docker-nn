@@ -1,3 +1,22 @@
+2015-12-12
+    测试hdfs ok
+    配置fair-scheduler.xml;
+    测试fair 多租户配置ok
+
+
+2015-12-12
+	升级完成；
+	使用翻墙工具，允许全局代理可以更新到最新版本。
+
+2015-12-09
+
+    升级
+
+    解决/apt/https 错误
+    RUN  DEBIAN_FRONTEND=noninteractive apt-get install -y apt-transport-https openssl
+
+
+
 2015-04-10
     千万数据载入45秒。
 
