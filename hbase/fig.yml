@@ -1,0 +1,152 @@
+#HBase
+#HMaster 60010 hbase.master.info.port
+#HRegionServer 60030 hbase.regionserver.info.port
+
+#####hadoop集群
+nn:
+  image: supermy/cloud-nn:snappy
+  environment:
+    HOSTNAME_NN: mynn
+  ports:
+    - "50070:50070"
+    - "8020:8020"
+    - "8021:8021"
+    - "1022:22"
+  hostname: mynn
+
+
+yarn:
+  image: supermy/cloud-yarn:snappy
+  links:
+    - nn:mynn
+  environment:
+    HDFSNAMENODERPC_SERVICE_HOST: mynn
+    HDFSNAMENODERPC_SERVICE_PORT: 8020
+  ports:
+    - "8088:8088"
+    - "19888:19888"
+  hostname: yarn
+  volumes_from:
+    - datayarn
+
+dn1:
+  image: supermy/cloud-dn:snappy
+  links:
+    - nn:mynn
+    - yarn
+  environment:
+    HDFSNAMENODERPC_SERVICE_HOST: mynn
+    HDFSNAMENODERPC_SERVICE_PORT: 8020
+  ports:
+    - "50075:50075"
+  hostname: mydn1
+
+
+dn2:
+  image: supermy/cloud-dn:snappy
+  links:
+    - nn:mynn
+    - yarn
+  environment:
+    HDFSNAMENODERPC_SERVICE_HOST: mynn
+    HDFSNAMENODERPC_SERVICE_PORT: 8020
+  ports:
+    - "50076:50075"
+  hostname: mydn2
+
+
+
+#常用工具集合
+datayarn:
+  image: busybox
+  command: /bin/true
+  volumes:
+      - /Users/moyong/project/env-myopensource/2-cloud/hadoop-docker-nn-my/hdfs/yarn/yarn-site.xml:/etc/hadoop/conf/yarn-site.xml
+      #- /Users/moyong/project/env-myopensource/2-cloud/hadoop-docker-nn-my/hdfs/yarn/fair-scheduler.xml:/etc/hadoop/conf/fair-scheduler.xml
+
+##########hbase
+
+zk:
+  image: jplock/zookeeper:latest
+  ports:
+    - "2181:2181"
+    - "2888:2888"
+    - "3888:3888"
+
+hb:
+  image: supermy/cloud-hb:snappy
+  links:
+    - nn:mynn
+    - dn1:mydn1
+    - dn2:mydn2
+    - zk:zookeeper1
+  environment:
+    #HBASEMASTERIPC_SERVICE_PORT: 60000
+    HBASEMASTERIPC_SERVICE_PORT_SERVICE_PORT: 60000
+    HDFSNAMENODERPC_SERVICE_HOST: mynn
+    HDFSNAMENODERPC_SERVICE_PORT: 8020
+    ZOOKEEPERCLIENT_SERVICE_HOST: zookeeper1
+    ZOOKEEPERCLIENT_SERVICE_PORT: 2181
+  ports:
+    - "60010:60010"
+  hostname: hbasemasteripc
+  volumes_from:
+    - datahbase
+
+rs:
+  image: supermy/cloud-rs:snappy
+  links:
+    - nn:mynn
+    - dn1:mydn1
+    - dn2:mydn2
+    - zk:zookeeper2
+    - hb:hbasemasteripc
+  environment:
+    HBASEMASTERIPC_SERVICE_HOST: hbasemasteripc
+    HBASEMASTERIPC_SERVICE_PORT: 60010
+    HBASEMASTERIPC_SERVICE_PORT_SERVICE_PORT: 60000
+    HDFSNAMENODERPC_SERVICE_HOST: mynn
+    HDFSNAMENODERPC_SERVICE_PORT: 8020
+    ZOOKEEPERCLIENT_SERVICE_HOST: zookeeper2
+    ZOOKEEPERCLIENT_SERVICE_PORT: 2181
+  ports:
+    - "60030:60030"
+  hostname: hregionserver1
+  volumes_from:
+    - datahbase
+
+datahbase:
+  image: busybox
+  command: /bin/true
+  volumes:
+      - /Users/moyong/project/env-myopensource/2-cloud/hadoop-docker-nn-my/hbase/shell:/data/hbase/
+
+
+#
+#initdb:
+#  image: supermy/cloud-initdb:cdh5
+#  links:
+#    - nn:mynn
+#    - dn1:mydn1
+#    - dn2:mydn2
+#    - zk:zookeeper2
+#    - hb:hbasemasteripc
+#  environment:
+#    HBASEMASTERIPC_SERVICE_HOST: hbasemasteripc
+#    HBASEMASTERIPC_SERVICE_PORT: 60010
+#    HBASEMASTERIPC_SERVICE_PORT_SERVICE_PORT: 60000
+#    HDFSNAMENODERPC_SERVICE_HOST: mynn
+#    HDFSNAMENODERPC_SERVICE_PORT: 8020
+#    ZOOKEEPERCLIENT_SERVICE_HOST: zookeeper2
+#    ZOOKEEPERCLIENT_SERVICE_PORT: 2181
+#  hostname: hregionserver1
+
+
+#web namenode http://192.168.59.103:50075/
+#web hbase #web http://192.168.59.103:60010/
+#web regionserver http://192.168.59.103:60030/
+
+#298 HRegionServer
+#296 HMaster
+#164 NameNode  测试ok
+#31  DataNode

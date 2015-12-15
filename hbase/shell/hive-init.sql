@@ -36,7 +36,7 @@ CREATE TABLE info_rcfile(
      ROW FORMAT DELIMITED FIELDS TERMINATED BY '\|' LINES TERMINATED BY '\n'
      STORED AS RCFILE;
 
-load data local inpath '/home/jamesmo/1.txt' OVERWRITE into table info_text;
+load data local inpath '/data/hbase/gndata/1.txt' OVERWRITE into table info_text;
 insert into table info_rcfile select * from info_text;
 
 select * from info_rcfile limit 20;

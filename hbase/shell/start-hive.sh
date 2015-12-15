@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 mkdir -p /home/jamesmo/hive-hbase/
 chown hdfs:hadoop /home/jamesmo/hive-hbase/
 chmod 777 /home/jamesmo/hive-hbase/

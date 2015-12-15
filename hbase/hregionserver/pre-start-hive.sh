@@ -1,6 +1,7 @@
+#!/usr/bin/env bash
 #初始化hive-hbase
 #上传hive-hbase所需的jar包
-sudo -u hdfs  hdfs dfs -mkdir -p hdfs://mynn:8020/usr/lib/hadoop/
+sudo -u hdfs hdfs dfs -mkdir -p hdfs://mynn:8020/usr/lib/hadoop/
 sudo -u hdfs hdfs dfs -mkdir -p hdfs://mynn:8020/usr/lib/hadoop-mapreduce/
 sudo -u hdfs hdfs dfs -mkdir -p hdfs://mynn:8020/usr/lib/zookeeper/
 sudo -u hdfs hdfs dfs -mkdir -p hdfs://mynn:8020/usr/lib/hbase/
@@ -19,10 +20,12 @@ chown hdfs:hadoop /home/jamesmo/hive-hbase/
 chmod 777 /home/jamesmo/hive-hbase/
 cd /home/jamesmo/hive-hbase/
 
-#初始化日志数据表
-sudo -u hdfs hive -f /home/jamesmo/hive-init.sql
+sudo -u hdfs hive --auxpath /usr/lib/hive/lib/hive-hbase-handler.jar,/usr/lib/hive/lib/hbase-server.jar,/usr/lib/hive/lib/zookeeper.jar -hiveconf hbase.zookeeper.quorum=zk_1
 
-sudo -u hdfs hbase shell </home/jamesmo/hbase-init.rb
+#初始化日志数据表
+#sudo -u hdfs hive -f /home/jamesmo/hive-init.sql
+
+#sudo -u hdfs hbase shell </home/jamesmo/hbase-init.rb
 
 #在hbase插入一条数据,hive查询数据同步增加
 #>hbase shell

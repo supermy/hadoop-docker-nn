@@ -40,12 +40,12 @@ CREATE TABLE info_rcfile(
      STORED AS RCFILE;
 
 #加载数据
-load data local inpath '/home/jamesmo/gndata/1.txt' OVERWRITE into table info_text;
-load data local inpath '/home/jamesmo/gndata/2.txt' OVERWRITE into table info_text;
-load data local inpath '/home/jamesmo/gndata/4.txt' OVERWRITE into table info_text;
-load data local inpath '/home/jamesmo/gndata/5.txt' OVERWRITE into table info_text;
-load data local inpath '/home/jamesmo/gndata/6.txt' OVERWRITE into table info_text;
-load data local inpath '/home/jamesmo/gndata/7.txt' OVERWRITE into table info_text;
+load data local inpath '/data/hbase/gndata/1.txt' OVERWRITE into table info_text;
+load data local inpath '/data/hbase/gndata/2.txt' OVERWRITE into table info_text;
+load data local inpath '/data/hbase/gndata/4.txt' OVERWRITE into table info_text;
+load data local inpath '/data/hbase/gndata/5.txt' OVERWRITE into table info_text;
+load data local inpath '/data/hbase/gndata/6.txt' OVERWRITE into table info_text;
+load data local inpath '/data/hbase/gndata/7.txt' OVERWRITE into table info_text;
 
 insert into table info_rcfile select * from info_text;
 #查看结果是否相同
