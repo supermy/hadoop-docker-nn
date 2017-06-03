@@ -1,3 +1,7 @@
+2016-03-22
+    alpine for hadoop hbase hive 没有成功的案例;是否有意义.
+
+
 2015-12-12
     测试hdfs ok
     配置fair-scheduler.xml;

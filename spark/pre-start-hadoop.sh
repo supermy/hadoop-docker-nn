@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # gen core-site.xml
 sed s/HOSTNAME/$HOSTNAME_NN/ /etc/hadoop/conf/core-site.xml.template > /etc/hadoop/conf/core-site.xml
 cat /etc/hadoop/conf/core-site.xml
